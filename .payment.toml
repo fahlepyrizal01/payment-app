@@ -1,0 +1,13 @@
+[app]
+name = "app-indra"
+version = "0.0.1"
+host = "localhost"
+port = 8000
+
+[database]
+host = "localhost"
+port = 26257
+name = "payment_db"
+sslmode = "disable"
+username = "root"
+password = ""

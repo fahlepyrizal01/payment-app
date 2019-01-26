@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package isi_saldo;
+
+service isiSaldoService {
+    rpc isiSaldo(isiSaldoData) returns (isiSaldoData) {}
+}
+
+message isiSaldoData {
+    int64 id_isi_saldo  = 1;
+    string id_penguna = 2;
+    float nominal_isi_saldo = 3;
+    string waktu_isi_saldo = 4;
+    repeated string errors_message = 5;
+}
