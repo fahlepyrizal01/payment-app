@@ -28,31 +28,30 @@ func (t *PenggunaData) getOnePengguna(ctx context.Context, db *sql.DB) (int64, s
 	return id, nama, telp, alamat, email, balance, url, nil
 }
 
-func (t *PenggunaData) loginPengguna(ctx context.Context, db *sql.DB) (int64, string, error) {
+func (t *PenggunaData) loginPengguna(ctx context.Context, db *sql.DB) (int64, error) {
 	var id int64 = 0
-	var nama string = ""
-	query := `SELECT id_pengguna, nama_pengguna FROM payment_db.pengguna 
+	query := `SELECT id_pengguna FROM payment_db.pengguna 
 	 	WHERE email = $1 AND password = $2`
 
-	err := db.QueryRowContext(ctx, fmt.Sprintf(query), t.Email, t.Password).Scan(&id, &nama)
-
-	if err != nil {
-		return id, nama, err
-	}
-	return id, nama, nil
-}
-
-func (t *PenggunaData) registerPengguna(ctx context.Context, db *sql.DB) (int64, error) {
-	var id int64 = 0
-	query := `INSERT INTO payment_db.pengguna (
-		nama_pengguna, password, nomor_telepon, alamat, email, balance, url_foto_profil) 
-		VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id_pengguna`
-
-	err := db.QueryRowContext(ctx, fmt.Sprintf(query), t.NamaPengguna,
-		t.Password, t.NomorTelepon, t.Alamat, t.Email, t.Balance, t.UrlFotoProfil).Scan(&id)
+	err := db.QueryRowContext(ctx, fmt.Sprintf(query), t.Email, t.Password).Scan(&id)
 
 	if err != nil {
 		return id, err
 	}
 	return id, nil
+}
+
+func (t *PenggunaData) registerPengguna(ctx context.Context, db *sql.DB) (string, error) {
+	var email string = ""
+	query := `INSERT INTO payment_db.pengguna (
+		nama_pengguna, password, nomor_telepon, alamat, email, balance, url_foto_profil) 
+		VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING email`
+
+	err := db.QueryRowContext(ctx, fmt.Sprintf(query), t.NamaPengguna,
+		t.Password, t.NomorTelepon, t.Alamat, t.Email, t.Balance, t.UrlFotoProfil).Scan(&email)
+
+	if err != nil {
+		return email, err
+	}
+	return email, nil
 }
