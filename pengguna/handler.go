@@ -6,7 +6,7 @@ type Pengguna_server struct {
 }
 
 func (t *Pengguna_server) OnePengguna(ctx context.Context, in *PenggunaData) (*PenggunaData, error) {
-	id, nama, telp, alamat, email, balance, url, err := in.getOnePengguna(ctx, dbPool)
+	id, nama, telp, alamat, email, balance, jk, lahir, err := in.getOnePengguna(ctx, dbPool)
 	if err != nil {
 		return &PenggunaData{}, err
 	}
@@ -16,7 +16,8 @@ func (t *Pengguna_server) OnePengguna(ctx context.Context, in *PenggunaData) (*P
 	in.Alamat = alamat
 	in.Email = email
 	in.Balance = balance
-	in.UrlFotoProfil = url
+	in.JenisKelamin = jk
+	in.TanggalLahir = lahir
 	return in, nil
 }
 

@@ -10,7 +10,8 @@ CREATE TABLE payment_db.Pengguna (
     alamat string NOT NULL,
     email string NOT NULL,
     balance FLOAT NOT NULL,
-    url_foto_profil string NOT NULL
+    jenis_kelamin string NOT NULL,
+    tanggal_lahir string NOT NULL
 );
 
 CREATE TABLE payment_db.Transaksi (
