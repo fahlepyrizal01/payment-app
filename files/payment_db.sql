@@ -21,10 +21,3 @@ CREATE TABLE payment_db.Transaksi (
     nominal FLOAT NOT NULL,
     waktu_transaksi string NOT NULL
 );
-
-CREATE TABLE payment_db.Isi_saldo (
-    id_isi_saldo SERIAL PRIMARY KEY,
-    id_penguna INT64 NOT NULL REFERENCES payment_db.Pengguna (id_pengguna),
-    nominal_isi_saldo INT NOT NULL,
-    waktu_isi_saldo string NOT NULL
-);
